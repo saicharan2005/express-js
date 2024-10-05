@@ -1,56 +1,15 @@
-//get
+const express =require('express')
 
-// const express =require('express');
-// const app=express()
+const router= express.Router();
 
-// const {people}=require('./data.js')
-
-
-// app.get('/people',(req,res)=>{
-//   res.status(200).json({sucess:true,data:people});
-// })
-
-// app.listen(5001,()=>{
-//   console.log("server is loading ......");
-// })
-
-
-const express =require('express');
 const { people } = require('./data');
-const app=express()
 
-app.use(express.urlencoded({extended:false})) //inorder to access the name (it parse ncoming request)
-
-app.use(express.json()) // this is for the javascript handling request
-app.use(express.static('./methods-public'))  //with this iam getting page but type somethig it goes to cannot/login(404) we need to handle it now .... 
-
-
-//by adding bellow post route is it will now me statys 200
-
-
-// //first post request
-// app.post('/login',(req,res)=>{
-//   // console.log(req.body);
-  
-//   res.send('post method...')
-// }) 
-
-
-app.post('/login',(req,res)=>{
-  // console.log(req.body);
-  const {name}=req.body
-  if(name){
-    return res.status(201).send( `hey welcome ${name}`)
-  }
-  
-  
-   res.status(401).send(`please enter credintials `)
-})  
-
-app.get('/api/people',(req,res)=>{
+router.get('/',(req,res)=>{
   res.status(200).json({Success:true,data:people})     //before we post we need to get the data
 })
-app.post('/api/people',(req,res)=>{
+
+
+router.post('/',(req,res)=>{
   // res.status(201).send('Sucess')
    const {name} =req.body;
    if(!name){
@@ -61,9 +20,9 @@ app.post('/api/people',(req,res)=>{
 
 })
 
-//we will return people by apple new person
+//we will return people by routerle new person
 
-app.post('/api/people/postman',(req,res)=>{
+router.post('/postman',(req,res)=>{
   // res.status(201).send('Sucess')
    const {name} =req.body;
    if(!name){
@@ -79,7 +38,7 @@ app.post('/api/people/postman',(req,res)=>{
 //update the name(given in input) for the id specified in the req params
 
 
-app.put('/api/people/:id',(req,res)=>{
+router.put('/:id',(req,res)=>{
   const {id} =req.params
   const {name}=req.body
 
@@ -102,7 +61,7 @@ app.put('/api/people/:id',(req,res)=>{
 
 //delete person with the id;
 
-app.delete('/api/people/:id',(req,res)=>{
+router.delete('/:id',(req,res)=>{
   const {id} =req.params
   const {name}=req.body
 
@@ -121,19 +80,5 @@ app.delete('/api/people/:id',(req,res)=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-app.listen(5000,()=>{
-  console.log("server is loading .................");
-  
-})
-
+module.exports =router
 

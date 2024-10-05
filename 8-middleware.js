@@ -7,6 +7,7 @@ const authorize =require('./authorize.js')
 
 
 const morgan =require('morgan')
+
 // app.get('/',(req,res)=>{
 //   const method =req.method;
 //   const url =req.url;
@@ -23,7 +24,7 @@ const morgan =require('morgan')
 app.use('/',[logger,authorize]);
 
 
-
+app.use(morgan('tiny'))
 
 app.get('/',(req,res)=>{
   console.log(req.user);
